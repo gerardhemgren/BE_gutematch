@@ -15,9 +15,9 @@ app.get('/allmatchs', async(req, res) => {
 })
 
 app.get('/myopengames/:id', async(req, res) => {
-    const player_id = req.params.id
+    const {id} = req.params
     try {
-        const eventRows = await pool.query(`SELECT * FROM show_player_open_games($1)`, [player_id])
+        const eventRows = await pool.query(`SELECT * FROM show_player_open_games($1)`, [id])
         res.json(eventRows.rows)
     } catch (error) {
         console.log(error.message)
