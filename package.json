@@ -1,0 +1,14 @@
+{
+  "name": "connect-with-node",
+  "version": "1.0.0",
+  "description": "postgresql",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.5.1"
+  }
+}
