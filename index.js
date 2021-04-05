@@ -1,34 +1,29 @@
+const { request, response } = require('express')
 const express = require('express')
 const app = express()
 const pool = require('./db')
 
-start()
+app.use(express.json())
 
-const player_id = 4
-
-async function start() {
+app.get('/allmatchs', async(req, res) => {
     try {
-        await pool.connect()
-        console.log(`connected on PORT: ${pool.port}
+        const result = await pool.query(`SELECT * FROM games ORDER BY date`)
+        res.json(result.rows)
+    } catch (error) {
+        console.log(error.message)
+    }
+})
 
-`)
-        const name = await pool.query(`SELECT name FROM players WHERE id = ${player_id}`)
-        console.log(`Player: ${name.rows[0].name}
-
-JOINED GAMES:`)
-        const {rows} = await pool.query(`SELECT * FROM show_player_games($1)`, [player_id])
-        console.table(rows)
-        console.log('OPEN EVENTS TO JOIN:')
+app.get('/myopengames/:id', async(req, res) => {
+    const player_id = req.params.id
+    try {
         const eventRows = await pool.query(`SELECT * FROM show_player_open_games($1)`, [player_id])
-        console.table(eventRows.rows)
+        res.json(eventRows.rows)
+    } catch (error) {
+        console.log(error.message)
+    }
+})
 
-    }
-    catch (error) {
-        console.log('Unnable: ', error)
-    }
-    finally {
-        await pool.end()
-        console.log(`
-disconnected`)
-    }
-}
+app.listen(5000, () => {
+    console.log('Server running on port 5000')
+})
