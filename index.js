@@ -5,6 +5,14 @@ const pool = require('./db')
 
 app.use(express.json())
 
+app.get('/', async(req, res) => {
+    try {
+        res.json('Futbol App')
+    } catch (error) {
+        console.log(error.message)
+    }
+})
+
 app.get('/allmatchs', async(req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM games ORDER BY date`)
