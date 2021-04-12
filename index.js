@@ -1,10 +1,11 @@
-const { request, response } = require('express')
+// const { request, response } = require('express')
 const express = require('express')
 const app = express()
 const pool = require('./db')
 
 app.use(express.json())
 
+// CONTROLLERS:
 app.get('/', async (req, res) => {
     try {
         res.json('Futbol App')
@@ -49,6 +50,7 @@ app.get('*', async (req, res) => {
         console.log(error.message)
     }
 })
+//
 
 app.listen(5000, () => {
     console.log('Server running on port 5000')
