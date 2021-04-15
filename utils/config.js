@@ -15,11 +15,6 @@ const prodConfig = {
       }
 }
 
-const pool = new Pool({
-    connectionString: `${process.env.URI}`,
-    ssl: {
-        rejectUnauthorized: false
-      }
-})
+const pool = new Pool(prodConfig)
 
 module.exports = pool

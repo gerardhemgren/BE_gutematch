@@ -1,14 +1,17 @@
 // const { request, response } = require('express')
+const pool = require('./utils/config')
 const express = require('express')
 const app = express()
-const pool = require('./db')
+const cors = require('cors')
 
+
+app.use(cors())
 app.use(express.json())
 
 // CONTROLLERS:
 app.get('/', async (req, res) => {
     try {
-        res.json('Futbol App')
+        res.json('/')
     } catch (error) {
         console.log(error.message)
     }
@@ -26,20 +29,20 @@ app.get('/allmatchs', async (req, res) => {
 app.get('/mygames/:id', async (req, res) => {
     const { id } = req.params
     try {
-        const eventRows = await pool.query(`SELECT * FROM show_player_games($1)`, [id])
+        const eventRows = await pool.query(`SELECT * FROM show_player_matchs($1)`, [id])
         res.json(eventRows.rows)
     } catch (error) {
-        res.redirect(`http://localhost:5000`)
+        res.json([])
     }
 })
 
 app.get('/myopengames/:id', async (req, res) => {
     const { id } = req.params
     try {
-        const eventRows = await pool.query(`SELECT * FROM show_player_open_games($1)`, [id])
+        const eventRows = await pool.query(`SELECT * FROM show_player_open_matchs($1)`, [id])
         res.json(eventRows.rows)
     } catch (error) {
-        res.redirect(`http://localhost:5000`)
+        res.json([])
     }
 })
 
