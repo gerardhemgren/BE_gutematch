@@ -17,29 +17,29 @@ app.get('/', async (req, res) => {
     }
 })
 
-app.get('/allmatchs', async (req, res) => {
+app.get('/all_matchs', async (req, res) => {
     try {
-        const result = await pool.query(`SELECT * FROM games ORDER BY date`)
+        const result = await pool.query(`SELECT * FROM all_matchs ORDER BY date`)
         res.json(result.rows)
     } catch (error) {
         console.log(error.message)
     }
 })
 
-app.get('/mygames/:id', async (req, res) => {
+app.get('/my_matchs/:id', async (req, res) => {
     const { id } = req.params
     try {
-        const eventRows = await pool.query(`SELECT * FROM show_player_matchs($1)`, [id])
+        const eventRows = await pool.query(`SELECT * FROM my_matchs($1)`, [id])
         res.json(eventRows.rows)
     } catch (error) {
         res.json([])
     }
 })
 
-app.get('/myopengames/:id', async (req, res) => {
+app.get('/open_matchs/:id', async (req, res) => {
     const { id } = req.params
     try {
-        const eventRows = await pool.query(`SELECT * FROM show_player_open_matchs($1)`, [id])
+        const eventRows = await pool.query(`SELECT * FROM open_matchs($1)`, [id])
         res.json(eventRows.rows)
     } catch (error) {
         res.json([])
@@ -51,6 +51,16 @@ app.get('*', async (req, res) => {
         res.json('wrong request')
     } catch (error) {
         console.log(error.message)
+    }
+})
+
+app.post('/open_matchs/:id', async (req, res) => {
+    const { id } = req.params
+    const { id_match } = req.body
+    try {
+        await pool.query(`CALL join_match($1, $2)`, [id_match, id])
+    } catch (error) {
+        res.json(error.message)
     }
 })
 //
