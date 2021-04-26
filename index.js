@@ -29,8 +29,8 @@ app.get('/all_matchs', async (req, res) => {
 app.get('/my_matchs/:id', async (req, res) => {
     const { id } = req.params
     try {
-        const eventRows = await pool.query(`SELECT * FROM my_matchs($1)`, [id])
-        res.json(eventRows.rows)
+        const result = await pool.query(`SELECT * FROM my_matchs($1)`, [id])
+        res.json(result.rows)
     } catch (error) {
         res.json([])
     }
@@ -39,8 +39,8 @@ app.get('/my_matchs/:id', async (req, res) => {
 app.get('/open_matchs/:id', async (req, res) => {
     const { id } = req.params
     try {
-        const eventRows = await pool.query(`SELECT * FROM open_matchs($1)`, [id])
-        res.json(eventRows.rows)
+        const result = await pool.query(`SELECT * FROM open_matchs($1)`, [id])
+        res.json(result.rows)
     } catch (error) {
         res.json([])
     }
@@ -59,6 +59,18 @@ app.post('/open_matchs/:id', async (req, res) => {
     const { id_match } = req.body
     try {
         await pool.query(`CALL join_match($1, $2)`, [id_match, id])
+        res.json(`joined to: ${id_match}`)
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+app.delete('/my_matchs/:id', async (req, res) => {
+    const { id } = req.params
+    const { id_match } = req.body
+    try {
+        await pool.query(`CALL left_match($1, $2)`, [id_match, id])
+        res.json(`lefted the match: ${id_match}`)
     } catch (error) {
         res.json(error.message)
     }
