@@ -54,6 +54,19 @@ app.get('*', async (req, res) => {
     }
 })
 
+app.post('/:id', async (req, res) => {
+    const { id } = req.params
+    const { date, location, players_field } = req.body
+    try {
+        await console.log(id, date, location, players_field)
+        await pool.query(`CALL create_match($1, $2, $3, $4)`, [id, date, location, players_field])
+        res.json(`Match created`)
+    } catch (error) {
+        console.log(error.message)
+        res.json(error.message)
+    }
+})
+
 app.post('/open_matchs/:id', async (req, res) => {
     const { id } = req.params
     const { id_match } = req.body
