@@ -12,9 +12,13 @@ const prodConfig = {
     connectionString: `${process.env.URI}`,
     ssl: {
         rejectUnauthorized: false
-      }
+    }
 }
 
 const pool = new Pool(prodConfig)
 
-module.exports = pool
+pool.on("connect", client => {
+    client.on("notice", msg => console.log('config', msg.message))
+    });
+
+module.exports = { pool }
