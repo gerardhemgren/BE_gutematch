@@ -17,8 +17,8 @@ const prodConfig = {
 
 const pool = new Pool(prodConfig)
 
-pool.on("connect", client => {
+/* pool.on("connect", client => {
     client.on("notice", msg => console.log('config', msg.message))
-    });
+    }); */
 
 module.exports = { pool }
