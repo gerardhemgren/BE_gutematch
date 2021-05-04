@@ -20,6 +20,7 @@ match.get('/all_matchs', async (req, res) => {
     }
 })
 
+// Get my matchs
 match.get('/my_matchs/:id', async (req, res) => {
     const { id } = req.params
     try {
@@ -30,6 +31,7 @@ match.get('/my_matchs/:id', async (req, res) => {
     }
 })
 
+// Get open matchs
 match.get('/open_matchs/:id', async (req, res) => {
     const { id } = req.params
     try {
@@ -40,19 +42,33 @@ match.get('/open_matchs/:id', async (req, res) => {
     }
 })
 
+// Create match
 match.post('/:id', async (req, res) => {
     const { id } = req.params
     const { date, location, players_field } = req.body
     try {
         await
             pool.query(`SELECT create_match($1, $2, $3, $4)`, [id, date, location, players_field])
-                .then( msg => res.json(msg.rows[0].create_match))
+                .then(msg => res.json(msg.rows[0].create_match))
     } catch (error) {
         console.log(error.message)
         res.json(error.message)
     }
 })
 
+// Delete my match
+match.delete('/my_matchs/:id', async (req, res) => {
+    const { id } = req.params
+    const { id_match } = req.body
+    try {
+        await pool.query(`SELECT delete_match($1, $2)`, [id_match, id])
+            .then(msg => res.json(msg.rows[0].delete_match))
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+// Join match
 match.post('/open_matchs/:id', async (req, res) => {
     const { id } = req.params
     const { id_match } = req.body
@@ -64,6 +80,7 @@ match.post('/open_matchs/:id', async (req, res) => {
     }
 })
 
+// Left match
 match.delete('/my_matchs/:id', async (req, res) => {
     const { id } = req.params
     const { id_match } = req.body
