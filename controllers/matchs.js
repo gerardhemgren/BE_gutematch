@@ -57,7 +57,7 @@ match.post('/:id', async (req, res) => {
 })
 
 // Delete my match
-match.delete('/my_matchs/:id', async (req, res) => {
+match.delete('/my_matchs/owner/:id', async (req, res) => {
     const { id } = req.params
     const { id_match } = req.body
     try {
