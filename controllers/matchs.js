@@ -45,10 +45,10 @@ match.get('/open_matchs/:id', async (req, res) => {
 // Create match
 match.post('/:id', async (req, res) => {
     const { id } = req.params
-    const { date, location, players_field } = req.body
+    const { date, location, players_field, name } = req.body
     try {
         await
-            pool.query(`SELECT create_match($1, $2, $3, $4)`, [id, date, location, players_field])
+            pool.query(`SELECT create_match($1, $2, $3, $4, $5)`, [id, date, location, players_field, name])
                 .then(msg => res.json(msg.rows[0].create_match))
     } catch (error) {
         console.log(error.message)
@@ -74,7 +74,7 @@ match.post('/open_matchs/:id', async (req, res) => {
     const { id_match } = req.body
     try {
         await pool.query(`CALL join_match($1, $2)`, [id_match, id])
-        res.json(`joined to: ${id_match}`)
+        res.json(`Match joined succesfully`)
     } catch (error) {
         res.json(error.message)
     }
@@ -86,7 +86,7 @@ match.delete('/my_matchs/:id', async (req, res) => {
     const { id_match } = req.body
     try {
         await pool.query(`CALL left_match($1, $2)`, [id_match, id])
-        res.json(`lefted the match: ${id_match}`)
+        res.json(`Match lefted succesfully`)
     } catch (error) {
         res.json(error.message)
     }
