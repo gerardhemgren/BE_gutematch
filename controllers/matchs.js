@@ -1,5 +1,5 @@
 const express = require('express')
-const { pool, notice } = require('../utils/config')
+const { pool } = require('../utils/config')
 
 const match = express()
 
@@ -43,7 +43,7 @@ match.get('/open_matchs/:id', async (req, res) => {
 })
 
 // Create match
-match.post('/:id', async (req, res) => {
+match.post('/add_match/:id', async (req, res) => {
     const { id } = req.params
     const { date, location, players_field, name } = req.body
     try {
