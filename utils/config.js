@@ -13,6 +13,7 @@ const prodConfig = {
     connectionString: `${process.env.URI}`,
     ssl: {
         rejectUnauthorized: false,
+        ssl: false
     }
 }
 
