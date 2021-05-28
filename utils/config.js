@@ -12,7 +12,8 @@ const prodConfig = {
     connectionString: `${process.env.URI}`,
     ssl: {
         rejectUnauthorized: false
-    }
+    },
+    sslmode: process.env.NODE_ENV === "production" ? "require" : "disable"
 }
 
 const pool = new Pool(prodConfig)
