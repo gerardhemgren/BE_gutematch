@@ -13,7 +13,7 @@ match.get('/', async (req, res) => {
 
 match.get('/all_matchs', async (req, res) => {
     try {
-        const result = await pool.query(`SELECT * FROM all_matchs ORDER BY date`)
+        const result = await pool.query(`SELECT * FROM all_matchs WHERE date >= current_timestamp ORDER BY date`)
         res.json(result.rows)
     } catch (error) {
         console.log(error.message)
