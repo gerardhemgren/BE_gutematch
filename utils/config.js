@@ -8,17 +8,15 @@ const devConfig = {
     port: process.env.PG_PORT,
     database: process.env.PG_DB
 }
+
 const prodConfig = {
     connectionString: `${process.env.URI}`,
     ssl: {
-        rejectUnauthorized: false
+        rejectUnauthorized: true,
+        sslmode: "require"
     }
 }
 
 const pool = new Pool(prodConfig)
-
-/* pool.on("connect", client => {
-    client.on("notice", msg => console.log('config', msg.message))
-    }); */
 
 module.exports = { pool }
