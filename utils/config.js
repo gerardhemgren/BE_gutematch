@@ -1,10 +1,6 @@
 const { Pool } = require('pg')
 require('dotenv').config()
 
-if (process.env.DATABASE_URL) {
-    pg.defaults.ssl = true;
-}
-
 const devConfig = {
     user: process.env.PG_USER,
     password: process.env.PG_PASS,
