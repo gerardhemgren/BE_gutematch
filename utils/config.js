@@ -10,7 +10,7 @@ const devConfig = {
 }
 
 const prodConfig = {
-    connectionString: `${process.env.URIñ}`,
+    connectionString: `${process.env.URI}`,
     ssl: {
         rejectUnauthorized: false
     },
