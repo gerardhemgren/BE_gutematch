@@ -12,9 +12,9 @@ const devConfig = {
 const prodConfig = {
     connectionString: `${process.env.URI}`,
     ssl: {
-        rejectUnauthorized: false
-    },
-    sslmode: "require"
+        rejectUnauthorized: false,
+        sslmode: "require"
+    }
 }
 
 const pool = new Pool(prodConfig)
