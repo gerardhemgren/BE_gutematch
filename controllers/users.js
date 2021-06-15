@@ -10,7 +10,7 @@ user.post('/config/:id', async (req, res) => {
     try {
         await pool.query('SELECT log_in($1, $2)', [id, name])
             .then(async () => {
-                const user = await pool.query('SELECT id FROM players WHERE user_id = $1', [id])
+                const user = await pool.query('SELECT id, name FROM players WHERE user_id = $1', [id])
                 res.json(user.rows)
             })
     } catch (error) {
