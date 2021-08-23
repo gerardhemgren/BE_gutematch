@@ -80,7 +80,7 @@ match.post('/open_matchs/:id', async (req, res) => {
     }
 })
 
-// Left match
+// Leave match
 match.delete('/my_matchs/:id', async (req, res) => {
     const { id } = req.params
     const { id_match } = req.body
