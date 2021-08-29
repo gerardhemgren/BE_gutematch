@@ -42,6 +42,30 @@ match.get('/open_matchs/:id', async (req, res) => {
     }
 })
 
+// Join match
+match.post('/open_matchs/:id', async (req, res) => {
+    const { id } = req.params
+    const { id_match } = req.body
+    try {
+        await pool.query(`CALL join_match($1, $2)`, [id_match, id])
+        res.json(`Match joined succesfully`)
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+// Leave match
+match.delete('/my_matchs/:id', async (req, res) => {
+    const { id } = req.params
+    const { id_match } = req.body
+    try {
+        await pool.query(`CALL leave_match($1, $2)`, [id_match, id])
+        res.json(`Match lefted succesfully`)
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
 // Create match
 match.post('/add_match/:id', async (req, res) => {
     const { id } = req.params
@@ -68,30 +92,7 @@ match.delete('/my_matchs/owner/:id', async (req, res) => {
     }
 })
 
-// Join match
-match.post('/open_matchs/:id', async (req, res) => {
-    const { id } = req.params
-    const { id_match } = req.body
-    try {
-        await pool.query(`CALL join_match($1, $2)`, [id_match, id])
-        res.json(`Match joined succesfully`)
-    } catch (error) {
-        res.json(error.message)
-    }
-})
-
-// Leave match
-match.delete('/my_matchs/:id', async (req, res) => {
-    const { id } = req.params
-    const { id_match } = req.body
-    try {
-        await pool.query(`CALL left_match($1, $2)`, [id_match, id])
-        res.json(`Match lefted succesfully`)
-    } catch (error) {
-        res.json(error.message)
-    }
-})
-
+// Handle wrong requests
 match.get('*', async (req, res) => {
     try {
         res.json('Wrong request')
