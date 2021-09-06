@@ -4,9 +4,8 @@ const { pool } = require('../utils/config')
 const user = express()
 
 // Sign Up - Log in
-user.post('/config/:sub', async (req, res) => {
-    const { sub } = req.params
-    const { name } = req.body
+user.post('/api/config', async (req, res) => {
+    const { sub, name } = req.body
     try {
         await pool.query('SELECT log_in($1, $2)', [sub, name])
             .then(async () => {
