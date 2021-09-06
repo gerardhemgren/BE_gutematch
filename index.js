@@ -1,29 +1,16 @@
-const { request, response } = require('express')
 const express = require('express')
 const app = express()
-const pool = require('./db')
+const cors = require('cors')
+const match = require('./controllers/matchs')
+const user = require('./controllers/users')
 
+app.use(cors())
 app.use(express.json())
+app.use(express.static('build'))
+app.use('/', match, user)
 
-app.get('/allmatchs', async(req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM games ORDER BY date`)
-        res.json(result.rows)
-    } catch (error) {
-        console.log(error.message)
-    }
-})
 
-app.get('/myopengames/:id', async(req, res) => {
-    const {id} = req.params
-    try {
-        const eventRows = await pool.query(`SELECT * FROM show_player_open_games($1)`, [id])
-        res.json(eventRows.rows)
-    } catch (error) {
-        console.log(error.message)
-    }
-})
-
-app.listen(5000, () => {
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => {
     console.log('Server running on port 5000')
 })
