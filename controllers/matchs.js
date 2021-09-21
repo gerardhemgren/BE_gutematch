@@ -75,7 +75,6 @@ match.post('/api/create_match/:id', async (req, res) => {
             pool.query(`SELECT create_match($1, $2, $3, $4, $5)`, [id, date, location, players_field, name])
                 .then(msg => res.json(msg.rows[0].create_match))
     } catch (error) {
-        console.log(error.message)
         res.json(error.message)
     }
 })

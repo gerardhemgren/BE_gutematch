@@ -1,5 +1,5 @@
 {
-  "name": "connect-with-node",
+  "name": "gutematch-server",
   "version": "1.0.0",
   "description": "postgresql",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "test": "node index.js",
     "start": "node index.js"
   },
-  "author": "",
+  "author": "eric gerard",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
