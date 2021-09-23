@@ -11,9 +11,9 @@ match.get('/', async (req, res) => {
     }
 })
 
-match.get('/api/all_matchs', async (req, res) => {
+match.get('/api/all_matches', async (req, res) => {
     try {
-        const result = await pool.query(`SELECT * FROM all_matchs WHERE date >= current_timestamp ORDER BY date`)
+        const result = await pool.query(`SELECT * FROM all_matches WHERE date >= current_timestamp ORDER BY date`)
         res.json(result.rows)
     } catch (error) {
         console.log(error.message)
@@ -21,10 +21,10 @@ match.get('/api/all_matchs', async (req, res) => {
 })
 
 // Get my matchs
-match.get('/api/my_matchs/:id', async (req, res) => {
+match.get('/api/my_matches/:id', async (req, res) => {
     const { id } = req.params
     try {
-        const result = await pool.query(`SELECT * FROM my_matchs($1)`, [id])
+        const result = await pool.query(`SELECT * FROM my_matches($1)`, [id])
         res.json(result.rows)
     } catch (error) {
         res.json(error.message)
@@ -32,10 +32,10 @@ match.get('/api/my_matchs/:id', async (req, res) => {
 })
 
 // Get open matchs
-match.get('/api/open_matchs/:id', async (req, res) => {
+match.get('/api/open_matches/:id', async (req, res) => {
     const { id } = req.params
     try {
-        const result = await pool.query(`SELECT * FROM open_matchs($1)`, [id])
+        const result = await pool.query(`SELECT * FROM open_matches($1)`, [id])
         res.json(result.rows)
     } catch (error) {
         res.json(error.message)
@@ -43,7 +43,7 @@ match.get('/api/open_matchs/:id', async (req, res) => {
 })
 
 // Join match
-match.post('/api/open_matchs/:id', async (req, res) => {
+match.post('/api/open_matches/:id', async (req, res) => {
     const { id } = req.params
     const { id_match } = req.body
     try {
@@ -55,7 +55,7 @@ match.post('/api/open_matchs/:id', async (req, res) => {
 })
 
 // Leave match
-match.delete('/api/my_matchs/:id', async (req, res) => {
+match.delete('/api/my_matches/:id', async (req, res) => {
     const { id } = req.params
     const { id_match } = req.body
     try {
@@ -80,7 +80,7 @@ match.post('/api/create_match/:id', async (req, res) => {
 })
 
 // Delete my match
-match.delete('/api/my_matchs/owner/:id', async (req, res) => {
+match.delete('/api/my_matches/owner/:id', async (req, res) => {
     const { id } = req.params
     const { id_match } = req.body
     try {
