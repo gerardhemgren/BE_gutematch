@@ -1,6 +1,5 @@
 const express = require('express')
 const { pool } = require('../utils/config')
-
 const match = express()
 
 match.get('/', async (req, res) => {
@@ -20,7 +19,7 @@ match.get('/api/all_matches', async (req, res) => {
     }
 })
 
-// Get my matchs
+// Get my matches
 match.get('/api/my_matches/:id', async (req, res) => {
     const { id } = req.params
     try {
@@ -31,7 +30,7 @@ match.get('/api/my_matches/:id', async (req, res) => {
     }
 })
 
-// Get open matchs
+// Get open matches
 match.get('/api/open_matches/:id', async (req, res) => {
     const { id } = req.params
     try {
@@ -90,6 +89,19 @@ match.delete('/api/my_matches/owner/:id', async (req, res) => {
         res.json(error.message)
     }
 })
+
+
+// Edit match
+match.put('/api/my_matches/owner/', async (req, res) => {
+    const { matchId, date, location, players_field, name } = req.body
+    try {
+        await pool.query(`SELECT edit_match($1, $2, $3, $4, $5)`, [matchId, date, location, players_field, name])
+            .then(msg => res.json(msg.rows[0].edit_match))
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
 
 // Handle wrong requests
 match.get('*', async (req, res) => {

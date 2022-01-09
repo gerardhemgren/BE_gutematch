@@ -3,10 +3,10 @@ require('dotenv').config()
 
 const devConfig = {
     user: process.env.PG_USER,
-    password: process.env.PG_PASS,
+    password: process.env.PG_PASSWORD,
     host: process.env.PG_HOST,
     port: process.env.PG_PORT,
-    database: process.env.PG_DB
+    database: process.env.PG_DATABASE
 }
 
 const prodConfig = {
@@ -17,6 +17,6 @@ const prodConfig = {
     }
 }
 
-const pool = new Pool(prodConfig)
+const pool = new Pool(devConfig)
 
 module.exports = { pool }
