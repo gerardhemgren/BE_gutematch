@@ -44,7 +44,7 @@ match.post('/api/open_matches/:id', async (req, res) => {
 })
 
 // Join match
-match.post('/api/open_matches/:id', async (req, res) => {
+match.post('/api/open_matches/owner/:id', async (req, res) => {
     const { id } = req.params;
     const { id_match } = req.body;
     try {
