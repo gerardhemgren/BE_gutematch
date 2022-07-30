@@ -20,7 +20,7 @@ match.get('/api/all_matches', async (req, res) => {
 })
 
 // Get my matches
-match.get('/api/my_matches/:id', async (req, res) => {
+match.post('/api/my_matches/:id', async (req, res) => {
     const { id } = req.params;
     const { clientDate } = req.body;
     try {
@@ -32,7 +32,7 @@ match.get('/api/my_matches/:id', async (req, res) => {
 })
 
 // Get open matches
-match.get('/api/open_matches/:id', async (req, res) => {
+match.post('/api/open_matches/:id', async (req, res) => {
     const { id } = req.params;
     const { clientDate } = req.body;
     try {
