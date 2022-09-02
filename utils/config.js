@@ -10,6 +10,14 @@ const devConfig = {
 }
 
 const prodConfig = {
+    user: process.env.AD_USER,
+    password: process.env.AD_PASSWORD,
+    host: process.env.AD_HOST,
+    port: process.env.AD_PORT,
+    database: process.env.AD_DATABASE
+}
+
+const prodConfigHK = {
     connectionString: `${process.env.URI}`,
     ssl: false,
     ssl: {

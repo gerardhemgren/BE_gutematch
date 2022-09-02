@@ -11,4 +11,4 @@ It uses the **'pg'** postgreSQL library to create a pool connection and call the
 The response can be a table or a returned function message from database, later parsed in a json, or a server message.
 
 
-**To improve:** error responses and 'developing||production' config (also in front-end).
+**To improve:** error responses.
