@@ -31,6 +31,17 @@ match.post('/api/my_matches/:id', async (req, res) => {
     }
 })
 
+// Get my matches information
+match.post('/api/my_matches/information/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query(`SELECT * FROM match_information($1)`, [id]);
+        res.json(result.rows);
+    } catch (error) {
+        res.json(error.message);
+    }
+})
+
 // Get open matches
 match.post('/api/open_matches/:id', async (req, res) => {
     const { id } = req.params;
